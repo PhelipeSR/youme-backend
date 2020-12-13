@@ -16,7 +16,7 @@ class AuthController {
       });
 
 			if (!user || await !bcrypt.compareSync(password, user.password))
-        return res.status(400).json({ error: { generic: 'Authentication failed.' } });
+        return res.status(400).json({ error: { errors: ['Authentication failed.'] } });
 
 			const token = jwt.sign({ id: user.id }, process.env.APP_SECRET, {
 				expiresIn: 86400
@@ -42,7 +42,7 @@ class AuthController {
       });
 
 			if (!user)
-        return res.status(400).json({ error: { generic: 'Account not found.' } });
+        return res.status(400).json({ error: { errors: ['Account not found.'] } });
 
       const now = new Date();
       const token = crypto.randomBytes(25).toString('hex');
@@ -55,7 +55,7 @@ class AuthController {
       });
 
       if (!recovery)
-        return res.status(400).json({ error: { generic: 'Error generate token.' } });
+        return res.status(400).json({ error: { errors: ['Error generate token.'] } });
 
       transporter.sendMail({
         to: user.email,
@@ -86,7 +86,7 @@ class AuthController {
       });
 
 			if (!recovery)
-        return res.status(400).json({ error: { generic: 'Invalid token.' } });
+        return res.status(400).json({ error: { errors: ['Invalid token.'] } });
 
       const userToUpdate = await User.update({ password }, {
         where: { id: recovery.user.id }

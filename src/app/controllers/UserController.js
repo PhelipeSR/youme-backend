@@ -54,7 +54,7 @@ class UserController {
     const { email, username } = req.body;
 
 		if (req.userId !== Number(id))
-			return res.status(403).json({ error: { generic: 'Unauthorized request' } });
+			return res.status(403).json({ error: { errors: ['Unauthorized request'] } });
 
 		try {
       const userToUpdate = await User.update({ username, email }, {
@@ -64,7 +64,7 @@ class UserController {
       });
 
 			if (!userToUpdate)
-				return res.status(422).json({ error: { generic: 'User not found' } });
+				return res.status(422).json({ error: { errors: ['User not found'] } });
 
 			return res.status(200).json({
         id: userToUpdate[1].dataValues.id,
@@ -82,7 +82,7 @@ class UserController {
 		const { id } = req.params;
 
 		if (req.userId !== Number(id))
-			return res.status(403).json({ error: { generic: 'Unauthorized request' } });
+			return res.status(403).json({ error: { errors: ['Unauthorized request'] } });
 
 		try {
       const userToDelete = await User.destroy({
@@ -90,7 +90,7 @@ class UserController {
       });
 
 			if (!userToDelete)
-				return res.status(422).json({ error: { generic: 'User not found' } });
+				return res.status(422).json({ error: { errors: ['User not found'] } });
 
 			return res.status(204).json();
 		} catch (error) {
