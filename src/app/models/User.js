@@ -45,9 +45,6 @@ module.exports = (sequelize, DataTypes) => {
       set(value) {
         this.setDataValue('password', bcrypt.hashSync(value, 10));
       },
-      // get() {
-      //   return undefined;
-      // }
     },
   }, {
     sequelize,
