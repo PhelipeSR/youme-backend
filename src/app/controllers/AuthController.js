@@ -67,14 +67,13 @@ class AuthController {
 
 			return res.status(204).json();
 		} catch (error) {
-			return res.status(500).json({ error });
+      return res.status(500).json({ error });
 		}
   }
 
   async resetPassword(req, res){
     try {
-      const { password } = req.body;
-      const { token } = req.params;
+      const { password, token } = req.body;
 
 			const recovery = await Recovery.findOne({
         where: {
@@ -94,10 +93,9 @@ class AuthController {
 
       recovery.status = 'used';
       recovery.save();
-
 			return res.status(200).json(recovery);
 		} catch (error) {
-			return res.status(500).json({ error });
+      return res.status(500).json({ error });
 		}
   }
 }

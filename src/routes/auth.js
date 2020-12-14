@@ -6,6 +6,6 @@ const authRoutes = new Router();
 
 authRoutes.post('/authenticate', AuthController.authenticate);
 authRoutes.post('/recovery-password', AuthController.recoveryPassword);
-authRoutes.put('/reset-password/:token', AuthController.resetPassword);
+authRoutes.put('/reset-password', AuthController.resetPassword);
 
 export default authRoutes;
